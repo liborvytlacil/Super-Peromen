@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Spring : MonoBehaviour
 {
-    public float velocityBoost = 5.6f;
+    public float velocityBoost = 4.2f;
     public float cooldownSeconds = .5f;
 
     private Animator animator;
@@ -15,15 +15,21 @@ public class Spring : MonoBehaviour
         ready();
     }
 
-
-    public bool isTriggered()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        return animator.GetBool("triggered");
+        if (!animator.GetBool("trigerred"))
+        {
+            PlayerController playerController = collision.GetComponent<PlayerController>();
+            if (playerController != null)
+            {
+                playerController.bounce(velocityBoost);
+                trigger();
+            }
+        }
     }
 
     public void trigger()
     {
-        Debug.Log("W W  W");
         animator.SetBool("triggered", true);
         StartCoroutine(cooldown());
     }

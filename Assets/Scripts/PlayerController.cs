@@ -6,7 +6,6 @@ public class PlayerController : MyKinematicObject
 {
     public float jumpTakeOffSpeed = 4.0f;
 
-    private bool jumped = false;
     private JumpState jumpState = JumpState.Grounded;
 
 
@@ -58,18 +57,9 @@ public class PlayerController : MyKinematicObject
 
     }
 
-    private void OnTriggerEnter2D(Collider2D collider)
+    public void bounce(float intensity)
     {
-        if (collider.gameObject.CompareTag("Spring"))
-        {
-            Spring spring = collider.gameObject.GetComponent<Spring>();
-
-            if (!spring.isTriggered())
-            {
-                spring.trigger();
-                jumpState = JumpState.PrepareSpring;
-            }
-        }
+        jumpState = JumpState.PrepareSpring;
     }
 
     private enum JumpState
