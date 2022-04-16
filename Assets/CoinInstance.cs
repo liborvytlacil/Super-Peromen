@@ -32,6 +32,8 @@ public class CoinInstance : MonoBehaviour
     {
         Color originalColor = spriteRenderer.color;
         float alpha = 1f;
+
+        // fade out over time
         while (alpha > 0f)
         {
             alpha -= .1f;

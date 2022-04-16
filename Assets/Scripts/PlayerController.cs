@@ -8,6 +8,9 @@ public class PlayerController : MyKinematicObject
 
     private JumpState jumpState = JumpState.Grounded;
 
+    // velicoty boost during the next PrepareSpring jump state
+    private float springBoost = 1.0f;
+
 
     protected override void Update()
     {
@@ -34,6 +37,7 @@ public class PlayerController : MyKinematicObject
                 }
                 break;
             case JumpState.InAir:
+                // When jump key is released during a jump, reduce the "jump force"
                 if (Input.GetKeyUp(KeyCode.Space))
                 {
                     velocity *= .5f;
@@ -44,7 +48,7 @@ public class PlayerController : MyKinematicObject
                 }
                 break;
             case JumpState.PrepareSpring:
-                velocity.y = jumpTakeOffSpeed * 1.4f;
+                velocity.y = springBoost;
                 jumpState = JumpState.InAirSpring;
                 break;
             case JumpState.InAirSpring:
@@ -60,6 +64,7 @@ public class PlayerController : MyKinematicObject
     public void bounce(float intensity)
     {
         jumpState = JumpState.PrepareSpring;
+        springBoost = intensity;
     }
 
     private enum JumpState
