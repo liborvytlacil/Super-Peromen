@@ -41,7 +41,6 @@ public class CoinInstance : MonoBehaviour
             yield return new WaitForSeconds(.025f);
         }
         state = State.Disappeared;
-        Debug.Log("Collected and disappeared");
     }
 
     internal enum State

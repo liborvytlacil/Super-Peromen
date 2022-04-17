@@ -4,15 +4,29 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private SpriteRenderer spriteRenderer;
+
+    private void Start()
     {
-        
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void FadeOutAndDisable()
     {
-        
+        StartCoroutine(FadeOut());
+    }
+
+    private IEnumerator FadeOut()
+    {
+        float alpha = 1.0f;
+        Color originalColor = spriteRenderer.color;
+        while (alpha > 0)
+        {
+            yield return new WaitForSeconds(.1f);
+            alpha -= .1f;
+            spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+            
+        }
+        gameObject.SetActive(false);
     }
 }

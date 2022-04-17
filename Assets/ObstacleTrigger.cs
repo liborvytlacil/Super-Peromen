@@ -21,9 +21,8 @@ public class ObstacleTrigger : MonoBehaviour
             {
                 obstacles.ForEach(obstacle =>
                 {
-                    obstacle.gameObject.SetActive(false);
-                    Debug.Log("O B S ");
-                }); // TODO
+                    obstacle.FadeOutAndDisable();
+                });
             }
         }
     }
